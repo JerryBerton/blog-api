@@ -1,0 +1,35 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "this is api",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test/test.js",
+    "start": "node app.js",
+    "sync": " NODE_ENV=sync node model/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@git.coding.net:jimberton/backend-pratt.git"
+  },
+  "keywords": [
+    "koa",
+    "sequelize",
+    "orm"
+  ],
+  "author": "jimberton",
+  "license": "ISC",
+  "dependencies": {
+    "koa": "^1.2.4",
+    "koa-bodyparser": "^2.3.0",
+    "koa-compress": "^1.0.9",
+    "koa-cors": "0.0.16",
+    "koa-logger": "^1.3.0",
+    "koa-router": "^5.4.0",
+    "request-promise": "^4.1.1",
+    "sequelize": "^3.27.0"
+  },
+  "devDependencies": {
+    "request": "^2.79.0"
+  }
+}
