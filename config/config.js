@@ -12,6 +12,7 @@ let config = {
     username: 'root',
     password: '123456'
   },
+  uploadDir: 'tmp'
 }
 
 //当NODE_ENV环境变量值为development时 
