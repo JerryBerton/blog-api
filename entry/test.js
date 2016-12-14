@@ -1,14 +1,12 @@
 'use strtic';
-var superagent = require('superagent');
-var cheerio = require('cheerio');
-var targetUrl = 'https://cnodejs.org/';
+let reptile = require('../util/reptile.js');
 module.exports.hello = function *() {
-  superagent.get(targetUrl)
-  .end(function (err, res) {
-    var $ = cheerio.load(res.text);
-    $('#topic_list .topic_title').each(function (idx, element) {
-      console.log($(element).attr('title'))
-    });
-  });
-  this.body = this.request.body;
+  let result = null;
+  try {
+    result = yield reptile.getFex()
+  } catch(e) {
+    console.log(e);
+  }
+  console.log(result);
+  this.body = result;
 }
