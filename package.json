@@ -20,6 +20,7 @@
   "author": "jimberton",
   "license": "ISC",
   "dependencies": {
+    "cheerio": "^0.22.0",
     "co-busboy": "^1.3.1",
     "koa": "^1.2.4",
     "koa-bodyparser": "^2.3.0",
@@ -30,7 +31,8 @@
     "mysql": "^2.12.0",
     "qiniu": "^6.1.13",
     "request-promise": "^4.1.1",
-    "sequelize": "^3.27.0"
+    "sequelize": "^3.27.0",
+    "superagent": "^3.2.1"
   },
   "devDependencies": {
     "request": "^2.79.0"
