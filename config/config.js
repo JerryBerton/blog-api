@@ -10,7 +10,7 @@ let config = {
     port: '3306',
     database: 'test',
     username: 'root',
-    password: '123456'
+    password: '123'
   },
   // 上传文件缓存路径
   uploadDir: 'tmp',
@@ -19,6 +19,7 @@ let config = {
     ACCESS_KEY: 'tHx_NFyqZL0AnhocyT3k471GexaWThXZJWbr5xhi',
     SECRET_KEY: 'yc0IhF18-bUKz45SpiyObA4BqUHIhtczbyro19_-',
     bucket: 'qiniu-sdk-test',
+    domain: 'http://ofdlfhayt.bkt.clouddn.com/',
   }
 }
 
