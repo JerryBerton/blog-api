@@ -1,12 +1,17 @@
 'user strict';
-
-
-let test  = require('./entry/test.js');
-let files = require('./entry/files.js');
+let article     = require('./entry/article.js');
+let category    = require('./entry/category.js');
+let carousel    = require('./entry/carousel.js');
+let test        = require('./entry/test.js');
+let files       = require('./entry/files.js');
 
 let routes = [
   { method: 'GET', path: '/', entry: test.hello},
   { method: 'POST', path: '/upload', entry: files.upload},
+
+  { method: 'GET', path: '/authority/article', entry: article.getList},
+  { method: 'GET', path: '/authority/category', entry: category.getList},
+  { method: 'GET', path: '/authority/carousel', entry: carousel.getList},
 ];
 
 module.exports.init = function (_) {

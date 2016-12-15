@@ -8,7 +8,7 @@ module.exports = function (sequelize, DataTypes) {
     },
     title: DataTypes.STRING,
     description: DataTypes.STRING,
-    content: DataTypes.TEXT,
+    content: DataTypes.TEXT('tiny'),
     hits: DataTypes.INTEGER,
     stars:  DataTypes.INTEGER,
     categoryId: {

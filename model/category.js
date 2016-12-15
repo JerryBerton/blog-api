@@ -9,7 +9,10 @@ module.exports = function (sequelize, DataTypes) {
     },
     name: DataTypes.STRING,
   }, {
-    tableName: 'category'
+    tableName: 'category',
+    associate: function(model) {
+      category.hasMany(model.tag, { foreignKey: 'categoryId'})
+    }
   });
   return category;
 }
