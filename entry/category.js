@@ -6,26 +6,27 @@ module.exports.getList = function *() {
   let resp = { code: 1, message: 'error' };
   let current = parseInt(query.current) || 1;
   let pageSize = parseInt(query.pageSize) || 15;
-
+  let result = {};
   let options = {
-     offset:  Math.abs(current - 1) * pageSize,
-     limit:  pageSize,
-     include: [
+    include: [
       { model: entity.tag }
     ]
   }
-  try {
+  if (!query.isPage) {
     let total = yield entity.category.count();
+    options = Object.assign(options, {
+      offset:  Math.abs(current - 1) * pageSize,
+     limit:  pageSize,
+    });
+    result = { current, pageSize, total}
+  } 
+  try {
+    
     let data = yield entity.category.findAll(options);
     resp = {
       code: 0,
       message: 'ok',
-      result: {
-        current,
-        pageSize,
-        total,
-        data
-      },
+      result: Object.assign({}, result, { data })
     };
   } catch (error) {
     

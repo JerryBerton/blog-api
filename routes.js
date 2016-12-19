@@ -10,8 +10,10 @@ let routes = [
   { method: 'POST', path: '/upload', entry: files.upload},
 
   { method: 'GET', path: '/authority/article', entry: article.getList},
+  { method: 'POST', path: '/authority/article', entry: article.insertOne},
   { method: 'GET', path: '/authority/category', entry: category.getList},
   { method: 'GET', path: '/authority/carousel', entry: carousel.getList},
+  { method: 'POST', path: '/authority/carousel', entry: carousel.insertOne},
 ];
 
 module.exports.init = function (_) {

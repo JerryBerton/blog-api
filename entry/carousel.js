@@ -30,3 +30,22 @@ module.exports.getList = function *() {
   
   this.body = resp;
 }
+module.exports.insertOne = function *() {
+  let body = this.request.body;
+  let resp = { code: 1 };
+  if (!body.url) {
+    resp.message = "url字段能为空";
+  } else {
+    try {
+      let data = yield entity.carousel.create(body);
+      resp = {
+        code: 0,
+        message: 'ok',
+        result: data.id
+      }
+    } catch (error) {
+      
+    }
+  }
+  this.body = resp;
+}

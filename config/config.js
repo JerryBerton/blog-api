@@ -5,12 +5,12 @@ let config = {
   port: 3000,
   // 数据库配置
   db: {
-    host: '127.0.0.1',
+    host: '101.200.165.146',
     dialect: 'mysql',
     port: '3306',
     database: 'test',
     username: 'root',
-    password: '123'
+    password: '123456'
   },
   // 上传文件缓存路径
   uploadDir: 'tmp',

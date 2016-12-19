@@ -7,7 +7,7 @@ let qiniu       = require('../util/qiniu.js');
 
 module.exports.upload = function *() {
   let part;
-  let parts = formParse(this, {autoFields: true});
+  let parts = formParse(this, { autoFields: true });
   let filesPath = [];
   while (part = yield parts) {
     let fileName = part.filename;
@@ -15,12 +15,14 @@ module.exports.upload = function *() {
     let stream = fs.createWriteStream(tmpPath); //stream.path
     part.pipe(stream);
     try {
-      let result = yield qiniu.uploadFile(fileName, stream.path);
+      let time = new Date().getTime();
+      let _filename = time + fileName.slice(fileName.lastIndexOf('.'), fileName.length);
+      let result = yield qiniu.uploadFile(_filename, stream.path);
       fs.unlink(tmpPath);
       filesPath.push(result.key);      
     } catch (error) {
       console.log(error);
     }
   }
-  this.body = filesPath;
+  this.body = filesPath[0];
 }

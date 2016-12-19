@@ -34,3 +34,28 @@ module.exports.getList = function *() {
   
   this.body = resp;
 }
+module.exports.insertOne = function *() {
+  let body = this.request.body;
+  let resp = { code: 1 };
+  if (!body.title) {
+    resp.message = "名称不能为空";
+  } else if (!body.description) {
+    resp.message = "描述不能为空";
+  } else if (!body.categoryId) {
+    resp.message = "分类不能为空";
+  } else if (!body.content) {
+    resp.message = "内容不能为空";
+  } else {
+     try {
+      let data = yield entity.article.create(body);
+      resp = {
+        code: 0,
+        message: 'ok',
+        result: data.id
+      }
+    } catch (error) {
+      
+    }
+  }
+  this.body = resp;
+}
