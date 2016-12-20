@@ -1,9 +1,12 @@
 let rp = require("request-promise");
 const data = { 
-  label: 'admin', 
-  url: '123', 
+  title: 'wjb', 
+  description: '123',
+  content: '123', 
+  categoryId: 1,
+  tags: []
 };
-let tokenUrl = 'http://127.0.0.1:3000/authority/carousel';
+let tokenUrl = 'http://127.0.0.1:3000/authority/article';
 rp({
   method: 'POST',
   uri: tokenUrl,

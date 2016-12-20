@@ -38,16 +38,16 @@ module.exports.insertOne = function *() {
   let body = this.request.body;
   let resp = { code: 1 };
   if (!body.title) {
-    resp.message = "名称不能为空";
+    resp.message = "title can't be empty";
   } else if (!body.description) {
-    resp.message = "描述不能为空";
+    resp.message = "description can't be empty";
   } else if (!body.categoryId) {
-    resp.message = "分类不能为空";
+    resp.message = "categoryId can't be empty";
   } else if (!body.content) {
-    resp.message = "内容不能为空";
+    resp.message = "content can't be empty";
   } else {
      try {
-      let data = yield entity.article.create(body);
+      let  data = yield entity.article.createTo(entity.tagProject,body);
       resp = {
         code: 0,
         message: 'ok',
