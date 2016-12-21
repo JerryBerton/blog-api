@@ -34,3 +34,46 @@ module.exports.getList = function *() {
   
   this.body = resp;
 }
+module.exports.insertOne = function *() {
+  let body = this.request.body;
+  let resp = { code: 1 };
+  if (!body.name) {
+    resp.message = "name can't be empty";
+  } if (!body.tags) {
+    body.tags = [];
+  } else {
+     try {
+      let data = yield entity.category.createTo(body, entity.tag);
+      resp = {
+        code: 0,
+        message: 'ok',
+        result: data.id
+      }
+    } catch (error) {
+      resp.message = "api is Exception";
+    }
+  }
+  this.body = resp;
+}
+module.exports.deleteOne = function * () {
+   let id = this.params.id;
+   let resp = { code: 1};
+   let options = {
+     where: { id }
+   };
+   if (!id) {
+     resp.message = "id is null"
+   } else {
+     try {
+       let data = yield entity.category.destroy(options);
+       resp = {
+        code: 0,
+        message: 'ok'
+      };
+     } catch (error) {
+       console.log(error);
+      resp.message = "api is Exception";
+     }
+   }
+   this.body = resp;
+}

@@ -1,12 +1,9 @@
 let rp = require("request-promise");
 const data = { 
-  title: 'wjb', 
-  description: '123',
-  content: '123', 
-  categoryId: 1,
-  tags: []
+  name: 'Java',
+  tags: ['spring', 'mysql']
 };
-let tokenUrl = 'http://127.0.0.1:3000/authority/article';
+let tokenUrl = 'http://127.0.0.1:3000/authority/category';
 rp({
   method: 'POST',
   uri: tokenUrl,

@@ -12,6 +12,8 @@ let routes = [
   { method: 'GET', path: '/authority/article', entry: article.getList},
   { method: 'POST', path: '/authority/article', entry: article.insertOne},
   { method: 'GET', path: '/authority/category', entry: category.getList},
+  { method: 'POST', path: '/authority/category', entry: category.insertOne},
+  { method: 'DELETE', path: '/authority/category/:id', entry: category.deleteOne},
   { method: 'GET', path: '/authority/carousel', entry: carousel.getList},
   { method: 'POST', path: '/authority/carousel', entry: carousel.insertOne},
 ];

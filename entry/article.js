@@ -6,6 +6,7 @@ module.exports.getList = function *() {
   let resp = { code: 1, message: 'error' };
   let current = parseInt(query.current) || 1;
   let pageSize = parseInt(query.pageSize) || 15;
+  
 
   let options = {
      offset:  Math.abs(current - 1) * pageSize,
