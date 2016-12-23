@@ -35,16 +35,15 @@ module.exports.getList = function *() {
   this.body = resp;
 }
 module.exports.insertOne = function *() {
- 
   let body = this.request.body;
   let resp = { code: 1 };
   if (!body.name) {
     resp.message = "name can't be empty";
-  } if (!body.tags) {
-    body.tags = [];
+  } if (!body.categoryId) {
+    resp.message = "categoryId can't be empty";
   } else {
      try {
-      let data = yield entity.category.createTo(body, entity.tag);
+      let data = yield entity.tag.create(body);
       resp = {
         code: 0,
         message: 'ok',
@@ -56,31 +55,6 @@ module.exports.insertOne = function *() {
   }
   this.body = resp;
 }
-module.exports.updateOne = function *() {
-   let id = this.params.id;
-   let body = this.request.body;
-   let resp = { code: 1};
-   let options = {
-     where: { id }
-   };
-   if (!id) {
-     resp = {
-       code: 2,
-       message: "id is null"
-     }
-   }
-   try {
-     let data = yield entity.category.update(body, options);
-     resp = {
-       code: 0,
-       message: 'ok'
-     }
-   } catch (error) {
-     console.log(error);
-     resp.message = "api is Exception";
-   }
-   this.body = resp;
-}
 module.exports.deleteOne = function * () {
    let id = this.params.id;
    let resp = { code: 1};
@@ -91,7 +65,7 @@ module.exports.deleteOne = function * () {
      resp.message = "id is null"
    } else {
      try {
-       let data = yield entity.category.destroy(options);
+       let data = yield entity.tag.destroy(options);
        resp = {
         code: 0,
         message: 'ok'

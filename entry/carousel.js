@@ -2,6 +2,7 @@
 let entity    = require('../model/index.js');
 
 module.exports.getList = function *() {
+  console.log(this.session);
   let query = this.request.query;
   let resp = { code: 1, message: 'error' };
   let current = parseInt(query.current) || 1;

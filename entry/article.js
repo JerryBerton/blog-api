@@ -5,7 +5,7 @@ module.exports.getList = function *() {
   let query = this.request.query;
   let resp = { code: 1, message: 'error' };
   let current = parseInt(query.current) || 1;
-  let pageSize = parseInt(query.pageSize) || 15;
+  let pageSize = parseInt(query.pageSize) || 10;
   
 
   let options = {
@@ -48,14 +48,14 @@ module.exports.insertOne = function *() {
     resp.message = "content can't be empty";
   } else {
      try {
-      let  data = yield entity.article.createTo(entity.tagProject,body);
+      let  data = yield entity.article.createTo(entity.tagProject, body);
       resp = {
         code: 0,
         message: 'ok',
-        result: data.id
+        result: new Date().getTime()
       }
     } catch (error) {
-      
+      resp.message = "添加失败";
     }
   }
   this.body = resp;
