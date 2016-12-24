@@ -1,9 +1,9 @@
 let rp = require("request-promise");
 const data = { 
-  name: 'Java',
-  tags: ['spring', 'mysql']
+  username: 'wjb',
+  password: 'wjb'
 };
-let tokenUrl = 'http://127.0.0.1:3000/authority/category';
+let tokenUrl = 'http://127.0.0.1:3000/authority/user/login';
 rp({
   method: 'POST',
   uri: tokenUrl,

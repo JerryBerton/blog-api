@@ -12,6 +12,11 @@ let config = {
     username: 'root',
     password: '123456'
   },
+  // redis 配置
+  redis: {
+    host: '127.0.0.1',
+    port: 6379,
+  },
   // 上传文件缓存路径
   uploadDir: 'tmp',
   // 七牛 
