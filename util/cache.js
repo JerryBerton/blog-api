@@ -15,7 +15,7 @@ Cache.prototype.set = function(key, value) {
      
   });
 }
-Cache.prototype.hset = function(key, value, expire = 1) {
+Cache.prototype.hset = function(key, value, expire = 14400) {
   this.client.hmset(key, value, (err, replay) => {
     if (!err) {
       this.client.expire(key, 60 * expire);

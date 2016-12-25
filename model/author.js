@@ -19,7 +19,8 @@ module.exports = function (sequelize, DataTypes) {
     weibo:  DataTypes.STRING,
     phone:  DataTypes.STRING,
     Address:  DataTypes.STRING,
-    company: DataTypes.STRING
+    company: DataTypes.STRING,
+    expire: DataTypes.INTEGER// 用户登录的失效时间
   }, {
     tableName: 'author'
   });

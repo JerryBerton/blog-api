@@ -1,13 +1,29 @@
+'use strict';
+let Cache     = require('../util/cache.js');
+let jwt       = require('jwt-simple');
+let client = new Cache();
+
 module.exports = function *(next) {
   let ctx = this.request;
   let _url = ctx.url.split('/');
-  if (_url.indexOf('authority') !== -1 || _url.indexOf('login') === -1 ) {
+  let session_user = yield client.getAll('user');
+  if (_url.indexOf('authority') > -1 ) {
     let token = ctx.query.token || ctx.body.token;
-    if (token === this.session) {
+    let token_user = jwt.decode(token, 'wjb');
+    let flag = false;
+    let resp = {};
+    try {
+      flag =  session_user.hasOwnProperty(token_user.username);
+      resp = { code: 4, message: 'token失效' }
+    } catch (error) {
+      resp = { code: 4, message: 'token验证失败' }
+    }
+    if (flag) {
       yield next;
     } else {
-      this.body = { code: 4, message: 'token 失效或不正确'};
+      this.body = resp;
     }
+  } else {
+     yield next;
   }
-  yield next;
 }

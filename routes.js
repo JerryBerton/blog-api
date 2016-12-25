@@ -4,13 +4,10 @@ let category    = require('./entry/category.js');
 let carousel    = require('./entry/carousel.js');
 let tag         = require('./entry/tag.js');
 let user        = require('./entry/user.js');
-let test        = require('./entry/test.js');
 let files       = require('./entry/files.js');
 
 let routes = [
-  { method: 'GET', path: '/', entry: test.hello},
   { method: 'POST', path: '/upload', entry: files.upload},
-
   { method: 'GET', path: '/authority/article', entry: article.getList},
   { method: 'POST', path: '/authority/article', entry: article.insertOne},
   { method: 'GET', path: '/authority/category', entry: category.getList},
@@ -23,7 +20,7 @@ let routes = [
   
   { method: 'GET', path: '/authority/carousel', entry: carousel.getList},
   { method: 'POST', path: '/authority/carousel', entry: carousel.insertOne},
-  { method: 'POST', path: '/authority/user/login', entry: user.login}
+  { method: 'POST', path: '/user/login', entry: user.login}
 ];
 
 module.exports.init = function (_) {
