@@ -15,6 +15,7 @@ Cache.prototype.set = function(key, value) {
      
   });
 }
+/** hash 操作封装 */
 Cache.prototype.hset = function(key, value, expire = 14400) {
   this.client.hmset(key, value, (err, replay) => {
     if (!err) {
@@ -22,17 +23,6 @@ Cache.prototype.hset = function(key, value, expire = 14400) {
     } 
   });
   
-}
-Cache.prototype.getCache = function(key) {
-  return new Promise((resolve, reject) => {
-    this.client.get(key, function(err, replay) {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(replay);
-      }
-    });
-  });
 }
 Cache.prototype.getAll = function (key) {
   return new Promise((resolve, reject) => {
@@ -45,4 +35,39 @@ Cache.prototype.getAll = function (key) {
     })
   })
 }
+/** --end--*/
+
+/** list 操作封装 */
+Cache.prototype.lpush = function(key, value) {
+  if (Array.isArray(value)) {
+    this.client.rpush(key, value);
+  } else {
+     this.client.lpush(key, value);
+  }
+}
+Cache.prototype.llen = function(key) {
+  return new Promise((resolve, reject) => {
+    this.client.llen(key, function(err, replay) {
+      if (!err) {
+        resolve(replay)
+      } else {
+        reject(err);
+      }
+    });
+  })
+
+}
+Cache.prototype.lrange = function(key, start = 0, end = 1) {
+  return new Promise((resolve, reject) => {
+    this.client.lrange(key, start, end, function(err, replay) {
+      if (!err) {
+        resolve(replay)
+      } else {
+        reject(err);
+      }
+    });
+  })
+
+}
+/** -- end --*/
 module.exports = Cache;

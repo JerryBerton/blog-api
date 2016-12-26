@@ -19,9 +19,7 @@ app.use(cors({ credentials: true }));
 
 // body 解析
 app.use(bodyParser());
-//*爬虫*/app.use();
-let fexReptile = require('./reptile/get_fex');
-app.use(fexReptile);
+
 app.use(filterToken);
 // 初始化路由
 routes.init(_router);

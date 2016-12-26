@@ -4,10 +4,14 @@ let category    = require('./entry/category.js');
 let carousel    = require('./entry/carousel.js');
 let tag         = require('./entry/tag.js');
 let user        = require('./entry/user.js');
+let reptile     = require('./entry/reptile.js');
 let files       = require('./entry/files.js');
 
 let routes = [
   { method: 'POST', path: '/upload', entry: files.upload},
+  { method: 'GET', path: '/authority/reptiles', entry: reptile.getCnodeList},
+  { method: 'GET', path: '/authority/reptile', entry: reptile.getCnodeDetail},
+
   { method: 'GET', path: '/authority/article', entry: article.getList},
   { method: 'POST', path: '/authority/article', entry: article.insertOne},
   { method: 'GET', path: '/authority/category', entry: category.getList},
