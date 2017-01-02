@@ -14,7 +14,7 @@ module.exports = function (sequelize, DataTypes) {
     },
     origin: DataTypes.STRING,
     description: DataTypes.STRING,
-    content: DataTypes.TEXT('tiny'),
+    content: DataTypes.TEXT,
     image: DataTypes.STRING,
     hits: {
       type: DataTypes.INTEGER,
@@ -27,7 +27,7 @@ module.exports = function (sequelize, DataTypes) {
     },
     categoryId: {
       type: DataTypes.INTEGER,
-      allowNull: false, 
+      allowNull: true, 
       filed: 'category_id'
     },
     disabled: {
@@ -46,6 +46,7 @@ module.exports = function (sequelize, DataTypes) {
             let tags = data.tags.map(function(n) {
               return { articleId: item.id, tagId: n}
             });
+            console.log(tags);
             return model.bulkCreate(tags, { transaction: t});
           })
         })

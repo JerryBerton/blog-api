@@ -14,6 +14,8 @@ let routes = [
 
   { method: 'GET', path: '/authority/article', entry: article.getList},
   { method: 'POST', path: '/authority/article', entry: article.insertOne},
+  { method: 'GET', path: '/authority/article/:id', entry: article.getOne},
+  
   { method: 'GET', path: '/authority/category', entry: category.getList},
   { method: 'POST', path: '/authority/category', entry: category.insertOne},
   { method: 'PUT', path: '/authority/category/:id', entry: category.updateOne},

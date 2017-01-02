@@ -35,6 +35,31 @@ module.exports.getList = function *() {
   
   this.body = resp;
 }
+module.exports.getOne = function *() {
+  let resp = { code: 1 };
+  let options = {
+    include: [
+      { model: entity.category }]
+  }; 
+  if (this.params.id) {
+    let id = this.params.id;
+    try {
+      let result = yield entity.article.findById(id, options);
+      resp = {
+        code: 0,
+        message: 'ok',
+        result
+      }
+    } catch (error) {
+      console.log(error);
+      resp.message = "api is Exception";
+    }   
+  } else {
+    resp.message = "api is Exception";
+  }
+  this.body = resp;
+}
+
 module.exports.insertOne = function *() {
   let body = this.request.body;
   let resp = { code: 1 };
@@ -42,19 +67,22 @@ module.exports.insertOne = function *() {
     resp.message = "title can't be empty";
   } else if (!body.description) {
     resp.message = "description can't be empty";
-  } else if (!body.categoryId) {
-    resp.message = "categoryId can't be empty";
-  } else if (!body.content) {
+  }  else if (!body.content) {
     resp.message = "content can't be empty";
   } else {
      try {
-      let  data = yield entity.article.createTo(entity.tagProject, body);
+       if (body.tags) {
+          let data = yield entity.article.createTo(entity.tagProject, body);
+       } else {
+         let data = yield entity.article.create(body);
+       }  
       resp = {
         code: 0,
         message: 'ok',
         result: new Date().getTime()
       }
     } catch (error) {
+      console.log(error);
       resp.message = "添加失败";
     }
   }
