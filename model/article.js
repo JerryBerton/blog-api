@@ -16,7 +16,8 @@ module.exports = function (sequelize, DataTypes) {
     description: DataTypes.STRING,
     content: DataTypes.TEXT,
     image: DataTypes.STRING,
-    hits: {
+    author: DataTypes.STRING,
+    visits: {
       type: DataTypes.INTEGER,
       defaultValue: 0
     },

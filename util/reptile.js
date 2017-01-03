@@ -3,25 +3,30 @@ let client = new Cache();
 let superagent = require('superagent');
 let cheerio = require('cheerio');
 let url = {
-  cnode: 'https://cnodejs.org'
+  cnode: 'https://cnodejs.org',
+  w3ctech: 'https://www.w3ctech.com'
 }
-// 爬虫cnode社区列表
-module.exports.cnodeList = function () {
+// 爬虫 w3ctech 社区列表
+module.exports.arrestList = function () {
   return new Promise((resolve, reject) => {
-    superagent.get(url.cnode + '?tab=share')
+    superagent.get(url.w3ctech + '/topic/index')
     .end(function (err, res) {
       if (!err) {
         let result = [];
         let $ = cheerio.load(res.text);
-        $('#topic_list .cell').each(function(idx, element) {   
-           let _span = $(element).find('.count_of_visits')[0]
-           let _a = $(element).find('.topic_title')[0];
+        $('#topic-list .topic_list_content').each(function(idx, element) {   
+          let parent = $(element).children().filter('.topic_content')[0];
+          let child_a = $(parent).find('a');
+          let child_img = $(parent).find('img');
+          let child_number = $(parent).find('.number');
            result.push({
              id: idx,
-             type: 'cnode社区',
-             visits: parseInt($(_span).text()),
-             title: $(_a).attr('title'),
-             href: url.cnode + $(_a).attr('href')
+             description: $(child_a[1]).text(),
+             visits: $(child_number[0]).text(),
+             title: $(child_a[0]).text(),
+             author: $(child_img[0]).attr('title'),
+             href: url.w3ctech + $(child_a[0]).attr('href'),
+             time: new Date($(child_a[2]).attr('title')),
            });
         });
          resolve(result);
@@ -31,21 +36,31 @@ module.exports.cnodeList = function () {
     });
   });
 }
-// 爬虫cndoe 社区 详细信息
-module.exports.cnodeDetail = function (url) {
+// 爬虫 w3ctech 社区 详细信息
+module.exports.arrestDetail = function (url) {
   return new Promise((resole, reject) => {
     superagent.get(url)
     .end(function(err, res) {
       if (!err) {
-        let $ = cheerio.load(res.text);
-        $(".put_good").remove();
-        let title = $(".topic_full_title").text();
-        let content = $(".markdown-text").html();
+       let $ = cheerio.load(res.text);
+       $('#bd .wx_qrcode_box').remove();
+       let content = $('#bd .callout').html();
+       let title = $('.topic_info h1').text();
+       let author = $('.topic_user img').attr('title');
+       let desc = [];
+       $('.topic_category_list li').each(function(idx, element) {
+          desc.push($(element).text());
+       });
+       let visits = $($('.meta li')[2]).text();
+       let time = $('.meta .topic_date').attr('title');
        let result = {
-         url, 
-         title: title.trim(),
+         title,
+         time: new Date(time),
+         origin: url,
+         description: desc.join('、'),
+         visits: parseInt(visits.slice(0, visits.length - 4)),
+         author,
          content,
-        
        }
        resole(result);
       } else {
