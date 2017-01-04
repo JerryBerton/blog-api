@@ -7,11 +7,7 @@ module.exports.getList = function *() {
   let current = parseInt(query.current) || 1;
   let pageSize = parseInt(query.pageSize) || 15;
   let result = {};
-  let options = {
-    include: [
-      { model: entity.tag }
-    ]
-  }
+  let options = {};
   if (!query.isPage) {
     let total = yield entity.category.count();
     options = Object.assign(options, {
@@ -40,11 +36,9 @@ module.exports.insertOne = function *() {
   let resp = { code: 1 };
   if (!body.name) {
     resp.message = "name can't be empty";
-  } if (!body.tags) {
-    body.tags = [];
   } else {
      try {
-      let data = yield entity.category.createTo(body, entity.tag);
+      let data = yield entity.category.create(body);
       resp = {
         code: 0,
         message: 'ok',

@@ -12,8 +12,7 @@ module.exports.getList = function *() {
      offset:  Math.abs(current - 1) * pageSize,
      limit:  pageSize,
      include: [
-      { model: entity.category },
-      { model: entity.tag }
+      { model: entity.category }
     ]
   }
   try {
@@ -71,11 +70,8 @@ module.exports.insertOne = function *() {
     resp.message = "content can't be empty";
   } else {
      try {
-       if (body.tags) {
-          let data = yield entity.article.createTo(entity.tagProject, body);
-       } else {
-         let data = yield entity.article.create(body);
-       }  
+       
+      let data = yield entity.article.create(body); 
       resp = {
         code: 0,
         message: 'ok',

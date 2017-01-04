@@ -16,7 +16,7 @@ module.exports = function (sequelize, DataTypes) {
     description: DataTypes.STRING,
     content: DataTypes.TEXT,
     image: DataTypes.STRING,
-    author: DataTypes.STRING,
+    author: DataTypes.STRING, 
     visits: {
       type: DataTypes.INTEGER,
       defaultValue: 0
@@ -38,29 +38,10 @@ module.exports = function (sequelize, DataTypes) {
     }
   }, {
     tableName: 'article',
-    classMethods: {
-      // 开启事物性扩展model
-      createTo: function(model, data) {
-        return sequelize.transaction(function(t) {
-          return article.create(data, { transaction: t})
-          .then(function(item) {
-            let tags = data.tags.map(function(n) {
-              return { articleId: item.id, tagId: n}
-            });
-            console.log(tags);
-            return model.bulkCreate(tags, { transaction: t});
-          })
-        })
-      }
-    },
     associate: function(models) {
       article.belongsTo(models.category, {
           foreignKey: 'categoryId'
         });
-      article.belongsToMany(models.tag, { 
-         through: { model: models.tagProject },
-         foreignKey: 'articleId', 
-      });
     }
   });
   return article;

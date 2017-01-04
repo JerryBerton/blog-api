@@ -34,7 +34,7 @@ fs
     console.log("正在初始化数据.....");
     setTimeout(function() {
       entity.author.create({
-        name: 'admin',
+        username: 'admin',
         password: 'admin'
       });
       console.log("初始化数据完成");

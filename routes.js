@@ -2,7 +2,6 @@
 let article     = require('./entry/article.js');
 let category    = require('./entry/category.js');
 let carousel    = require('./entry/carousel.js');
-let tag         = require('./entry/tag.js');
 let user        = require('./entry/user.js');
 let reptile     = require('./entry/reptile.js');
 let files       = require('./entry/files.js');
@@ -21,9 +20,6 @@ let routes = [
   { method: 'PUT', path: '/authority/category/:id', entry: category.updateOne},
   { method: 'DELETE', path: '/authority/category/:id', entry: category.deleteOne},
 
-  { method: 'POST', path: '/authority/tag', entry: tag.insertOne},
-  { method: 'DELETE', path: '/authority/tag/:id', entry: tag.deleteOne},
-  
   { method: 'GET', path: '/authority/carousel', entry: carousel.getList},
   { method: 'POST', path: '/authority/carousel', entry: carousel.insertOne},
   { method: 'POST', path: '/user/login', entry: user.login}
