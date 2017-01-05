@@ -6,13 +6,12 @@ module.exports.getList = function *() {
   let resp = { code: 1, message: 'error' };
   let current = parseInt(query.current) || 1;
   let pageSize = parseInt(query.pageSize) || 10;
-  
-
   let options = {
      offset:  Math.abs(current - 1) * pageSize,
      limit:  pageSize,
+     attributes: {exclude: 'content'},
      include: [
-      { model: entity.category }
+      { model: entity.category, attributes: ['id', 'name']}
     ]
   }
   try {
@@ -29,7 +28,7 @@ module.exports.getList = function *() {
       },
     };
   } catch (error) {
-    
+    console.log(error);
   }
   
   this.body = resp;
@@ -38,7 +37,7 @@ module.exports.getOne = function *() {
   let resp = { code: 1 };
   let options = {
     include: [
-      { model: entity.category }]
+      { model: entity.category, attributes: ['id', 'name'] }]
   }; 
   if (this.params.id) {
     let id = this.params.id;

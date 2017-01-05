@@ -7,8 +7,9 @@ let logger            = require('koa-logger');
 let cors              = require('koa-cors');
 let config            = require('./config/config.js');
 let routes            = require('./routes.js');
-let filterToken       = require('./middleware/filter.js');
 
+let filterToken       = require('./middleware/token_filter.js');
+let filterResponse    = require('./middleware/resp_filter.js')
 let app = Application();
 app.keys = ['some secret hurr']
 // 日志记录
@@ -26,6 +27,7 @@ routes.init(_router);
 
 app.use(_router.routes());
 
+app.use(filterResponse);
 
 // Compress
 app.use(compress());
